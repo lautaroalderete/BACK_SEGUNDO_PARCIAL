@@ -1,0 +1,29 @@
+{
+  "name": "back_segundo_parcial",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lautaroalderete/BACK_SEGUNDO_PARCIAL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lautaroalderete/BACK_SEGUNDO_PARCIAL/issues"
+  },
+  "homepage": "https://github.com/lautaroalderete/BACK_SEGUNDO_PARCIAL#readme",
+  "dependencies": {
+    "dotenv": "^17.0.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "nodemon": "^3.1.10"
+  }
+}
