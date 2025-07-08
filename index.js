@@ -7,6 +7,7 @@ const PORT = environments.port;
 const app = express();
 
 //Middlewares
+app.use(express.json()); //Esto lo que hace es parsear el JSON del body
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -59,6 +60,36 @@ app.get("/vehiculos/:id", async(req, res) => {
         })
     }
 })
+
+app.post("/vehiculos", async(req, res) => {
+    try {
+        let { category, image, name, model, price, km } = req.body;
+
+        if(!category || !image || !name || !model || !price || !km) {
+            return res.status(400).json({
+                message: "datos inválidos, asegurate de enviar todos los datos"
+            });
+        }
+        // Hacemos uso de placeholders ? para prevenir SQL Injection
+        let sql = `INSERT INTO vehiculos (tipo, img, nombre, modelo, precio, km) VALUES (?, ?, ?, ?, ?, ?)`;
+
+        let [rows] = await connection.query(sql, [category, image, name, model, price, km]);
+
+        res.status(201).json({
+            message: "Producto creado con éxito",
+            productId: rows.insertId
+        });
+
+    } catch(error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: "Error interno del servidor",
+            error: error.message
+        })
+    }
+})
+
 
 
 app.listen(PORT, () => {
