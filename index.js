@@ -160,6 +160,42 @@ app.put("/vehiculos", async(req, res) =>{
     }
 })
 
+// ENDPOINT => DELETE
+app.delete("/vehiculos/:id", async (req, res) => {
+    try {
+        let { id } = req.params;
+        if(!id) {
+            return res.status(400).json({
+                message: "Se requiere un id para eliminar el producto",
+            })
+        }
+        
+        let sql = "DELETE FROM vehiculos WHERE id = ?";
+
+        let [result] = await connection.query(sql, [id]);
+
+        //Testeamos que se eliminara.
+        if(result.affectedRows === 0){
+            return res.status(400).json({
+                message: `No se encontró un producto con id ${id}`
+            });
+        }
+
+        return res.status(200).json({
+            message: `Producto con id ${id} eliminado correctamente`
+        });
+    } catch(error) {
+        console.error("Error en DELETE vehiculos/:id", error);
+
+        res.status(500).json({
+            message: `Error al eliminar producto con id ${id}`, error,
+            error:error.message
+        })
+    }
+})
+
+
+
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en puerto ${PORT}`)
 })
