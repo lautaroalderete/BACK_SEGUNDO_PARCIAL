@@ -22,8 +22,8 @@ export const vistaConsultarId = async (req, res) =>{
 }
 
 export const vistaCrear = async (req, res) =>{
-    res.render("eliminar", {
-        title: "Eliminar producto"
+    res.render("Crear", {
+        title: "Crear producto"
     });
 }
 

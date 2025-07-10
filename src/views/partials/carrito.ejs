@@ -1,13 +1,20 @@
 <section class="section-carrito">
     <h2>Carrito</h2>
-    <ul id="items-carrito">
-        <!--
-        <li class="li-listados productos"></li>
-            <img src="" alt="" class="img-listados">
-            <p>Id: / Nombre: / <strong>Precio: </strong></p>
-        -->
-    </ul>
-    <div class="total-carrito">
-        
+    <div class="nav-carrito">
+        <span>🛒 Carrito (<span id="contador-carrito">0</span>)</span>
+    </div>
+    <div id="items-carrito">
+        <button onclick="vaciarCarrito()" class="boton-vaciar-carrito">Vaciar Carrito</button>
+        <p id="parrafo-no-hay-items">No hay elementos en el carrito.</p>
+        <ul id="lista-carrito">
+            <!--
+            <li class="li-listados productos"></li>
+                <img src="" alt="" class="img-listados">
+                <p>Id: / Nombre: / <strong>Precio: </strong></p>
+            -->
+        </ul>
+    </div>
+    <div class="total-carrito" id="total-carrito">
+        Total $0
     </div>
 </section>
