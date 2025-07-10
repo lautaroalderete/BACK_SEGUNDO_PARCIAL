@@ -1,0 +1,22 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/main") %>
+<h2><%= title %></h2>
+<div class="container-formularioGet" class="crudForm-container">
+    <h3>Consultar producto</h3>
+    <form id="getProduct-form">
+        <label for="idProd">Id producto</label>
+        <input type="number" name="idProd" id="idProd">
+
+        <input type="submit" value="Consultar producto">
+    </form>
+</div>
+
+<div id="getId-container">
+    <ul id="getId-list">
+
+    </ul>
+</div>
+<script src="/js/delete.js"></script>
+<%- include("partials/carrito") %>
+<%- include("partials/footer") %>

@@ -1,0 +1,32 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/main") %>
+<h2><%= title %></h2>
+<div id="altaProductos-container" class="crudForm-container">
+    <form id="altaProductos-form" autocomplete="off">
+        <select name="category" id="categoryProd" required>
+            <option value="auto">Auto</option>
+            <option value="moto">Moto</option>
+        </select>
+
+        <label for="imagenProd">Imagen</label>
+        <input type="text" name="image" id="imagenProd" required>
+        
+        <label for="nombreProd">Nombre</label>
+        <input type="text" name="name" id="nombreProd" required>
+
+        <label for="modeloProd">Modelo</label>
+        <input type="text" name="model" id="modeloProd" required>
+
+        <label for="kmProd">KM</label>
+        <input type="number" name="km" id="kmProd" required>
+
+        <label for="precioProd">Precio</label>
+        <input type="number" name="price" id="precioProd" required>
+        
+        <input type="submit" value="Crear vehiculo">
+    </form>
+</div>
+<script src="/js/post.js"></script>
+<%- include("partials/carrito") %>
+<%- include("partials/footer") %>

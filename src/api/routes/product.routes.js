@@ -14,12 +14,10 @@ router.get("/:id", validateId, getProductById);
 // 3. POST -> Crear nuevos productos
 router.post("/", createProduct);
 
-
 // 4. Cuarto endpoint -> Update 
 router.put("/", modifyProduct);
 
-
-// 4. Cuarto endpoint -> Delete 
+// 5. Quinto endpoint -> Delete 
 router.delete("/:id", removeProduct);
 
 export default router; // Exportamos las rutas
