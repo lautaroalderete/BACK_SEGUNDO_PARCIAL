@@ -6,6 +6,8 @@ import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 import { productRoutes, viewsRoutes } from "./src/api/routes/index.js";
 import { join, __dirname } from "./src/api/utils/index.js";
 
+console.log("Hola");
+
 const PORT = environments.port;
 const app = express();
 
