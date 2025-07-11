@@ -16,7 +16,7 @@ const selectAllProducts = async() => {
 // Seleccionar producto por su id //
 const selectProductFromId = async (id) => {
     
-    let sql = `SELECT * FROM vehiculos where id = ?`;
+    let sql = `SELECT * FROM vehiculos WHERE id = ? AND estado = 1;`;
 
     return await connection.query(sql, [id]);
 }
@@ -33,7 +33,7 @@ const updateProduct = async(id, category, image, name, model, price, km) => {
     let sql = `
             UPDATE vehiculos
             SET tipo = ?, img = ?, nombre = ?, modelo = ?, precio = ?, km = ?
-            WHERE id = ?
+            WHERE id = ? AND estado = 1;
         `;
     return await connection.query(sql, [category, image, name, model, price, km, id]);
 }

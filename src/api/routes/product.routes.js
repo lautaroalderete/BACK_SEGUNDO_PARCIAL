@@ -20,4 +20,15 @@ router.put("/", modifyProduct);
 // 5. Quinto endpoint -> Delete 
 router.delete("/:id", removeProduct);
 
+router.post("/compras", (req, res) => {
+    const productos = req.body.productos;
+
+    if (!Array.isArray(productos) || productos.length === 0) {
+        return res.status(400).json({ message: "Carrito vacío" });
+    }
+
+    console.log("Compra simulada:", productos);
+    return res.status(200).json({ message: "Compra registrada (simulada) con éxito" });
+});
+
 export default router; // Exportamos las rutas

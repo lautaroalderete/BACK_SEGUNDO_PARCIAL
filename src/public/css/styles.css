@@ -296,6 +296,20 @@ ul li {
     cursor: pointer;
 }
 
+.boton-realizar-compra {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.boton-realizar-compra:hover {
+    background-color: #218838;
+}
+
 @media (max-width: 768px) {
     .header-nav {
         flex-direction: column;

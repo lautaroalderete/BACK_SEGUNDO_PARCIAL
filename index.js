@@ -32,6 +32,8 @@ app.use("/api/vehiculos", productRoutes);
 
 app.use("/dashboard", viewsRoutes)
 
+app.use("/api", productRoutes);
+
 // Ruta de prueba simple
 app.get('/api/test', (req, res) => {
     res.json({

@@ -1,4 +1,5 @@
 let carrito = [];
+let lista_original = [];
 
 const carritoGuardado = localStorage.getItem("carrito");
 if (carritoGuardado) {
@@ -37,10 +38,10 @@ async function obtenerDatosProductos() {
 
 function mostrarProductos(array) {
     lista_productos = array.payload;
-    console.table(lista_productos);
+    lista_original = [...lista_productos]; // ← guardamos una copia "intocable"
 
     const contenedor = document.querySelector(".container-productos");
-    contenedor.innerHTML = ""; // Limpiar contenido previo, por si acaso
+    contenedor.innerHTML = "";
 
     lista_productos.forEach(producto => {
         const tarjeta = document.createElement("div");
@@ -53,7 +54,7 @@ function mostrarProductos(array) {
             <p><strong>Kilometraje:</strong> ${producto.km} km</p>
             <button class="boton-carrito" data-id="${producto.id}">Agregar al carrito</button>
         `;
-        
+
         const boton = tarjeta.querySelector(".boton-carrito");
         boton.addEventListener("click", () => {
             const id = parseInt(boton.getAttribute("data-id"));
@@ -63,6 +64,45 @@ function mostrarProductos(array) {
         contenedor.appendChild(tarjeta);
     });
 }
+
+const inputBusqueda = document.getElementById("input-busqueda");
+
+inputBusqueda.addEventListener("input", () => {
+    const termino = inputBusqueda.value.trim().toLowerCase();
+
+    if (termino === "") {
+        lista_productos = [...lista_original]; // restauramos todos
+    } else {
+        lista_productos = lista_original.filter(producto =>
+            producto.nombre.toLowerCase().includes(termino) ||
+            producto.modelo.toLowerCase().includes(termino)
+        );
+    }
+
+    const contenedor = document.querySelector(".container-productos");
+    contenedor.innerHTML = "";
+
+    lista_productos.forEach(producto => {
+        const tarjeta = document.createElement("div");
+        tarjeta.classList.add("tarjeta-producto");
+
+        tarjeta.innerHTML = `
+            <img src="${producto.img}" alt="${producto.nombre}">
+            <h3>${producto.nombre} - ${producto.modelo}</h3>
+            <p><strong>Precio:</strong> $${producto.precio}</p>
+            <p><strong>Kilometraje:</strong> ${producto.km} km</p>
+            <button class="boton-carrito" data-id="${producto.id}">Agregar al carrito</button>
+        `;
+
+        const boton = tarjeta.querySelector(".boton-carrito");
+        boton.addEventListener("click", () => {
+            const id = parseInt(boton.getAttribute("data-id"));
+            agregarCarrito(id);
+        });
+
+        contenedor.appendChild(tarjeta);
+    });
+});
 
 function agregarCarrito(id){
     let producto_agregado = lista_productos.find(producto => producto.id === id);
@@ -132,6 +172,41 @@ function mostrarCarrito(){
     })
     itemsCarrito.innerHTML = listaCarrito;
     console.log(carrito)
+}
+
+function realizarCompra() {
+    if (carrito.length === 0) {
+        alert("No hay productos en el carrito.");
+        return;
+    }
+
+    const confirmacion = window.confirm("¿Estás seguro que deseas realizar la compra?");
+    if (!confirmacion) {
+        return; // Si el usuario cancela, no hace nada
+    }
+
+    fetch("/api/compras", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ productos: carrito })
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error("Error en la solicitud");
+        }
+        return res.json();
+    })
+    .then(data => {
+        alert("¡Compra realizada con éxito!");
+        console.log("Respuesta del servidor:", data);
+        vaciarCarrito(); // Limpiamos carrito después de la compra
+    })
+    .catch(error => {
+        console.error("Error al realizar la compra:", error);
+        alert("Hubo un problema al procesar la compra.");
+    });
 }
 
 obtenerDatosProductos();
